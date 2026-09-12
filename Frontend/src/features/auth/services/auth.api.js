@@ -1,72 +1,48 @@
+import api from "../../../services/api";
 
-import axios from 'axios'
-
- //by default cookies access is not given in axios so we send it with flag,
- // so that it get access to read and set any data in cookie.
-const api = axios.create({
-    baseURL: import.meta.env.VITE_REACT_APP_BACKEND_BASEURL || "http://localhost:3000",
-    withCredentials: true
-})
-
-
-export async function register({username,email,password}) {
-
+export async function register({ username, email, password }) {
     try {
-
-     const response= await api.post('/api/auth/register', {
-        username, email, password
-    })
-
-    return response.data;
-    } 
-    catch(err) {
-
-        console.log(err)
+        const response = await api.post("/api/auth/register", {
+            username,
+            email,
+            password
+        });
+        return response.data;
+    } catch (err) {
+        const message = err.response?.data?.message || err.message || "Registration failed";
+        throw new Error(message);
     }
-    
 }
 
-export async function login({email,password}) {
-
-    try{
-        const response = await api.post('/api/auth/login', {
-            email, password
-        })
-
-        return response.data
-
-    } catch(err) {
-        console.log(err)
+export async function login({ email, password }) {
+    try {
+        const response = await api.post("/api/auth/login", {
+            email,
+            password
+        });
+        return response.data;
+    } catch (err) {
+        const message = err.response?.data?.message || err.message || "Login failed";
+        throw new Error(message);
     }
-
 }
 
 export async function logout() {
-
-    try{
-
-
-        const response = await api.get("/api/auth/logout")
-        
-        return response.data
+    try {
+        const response = await api.get("/api/auth/logout");
+        return response.data;
+    } catch (err) {
+        const message = err.response?.data?.message || err.message || "Logout failed";
+        throw new Error(message);
     }
-    catch(err) {
-        console.log(err)
-    }
-    
 }
 
-
 export async function getMe() {
-
-    try{
-
-    const response = await api.get("/api/auth/get-me")
-
-     return response.data
-
-    } catch(err) {
-        console.log(err)
+    try {
+        const response = await api.get("/api/auth/get-me");
+        return response.data;
+    } catch (err) {
+        const message = err.response?.data?.message || err.message || "Failed to fetch user";
+        throw new Error(message);
     }
-    
 }

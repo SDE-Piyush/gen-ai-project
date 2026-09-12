@@ -58,8 +58,12 @@ async function registerUserController(req, res) {
 
     res.status(201).json({
         message: "User registered successfully",
-        username: user.username,
-        email: user.email
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email
+        },
+        token
     })
 
 }
@@ -73,6 +77,12 @@ async function registerUserController(req, res) {
 async function loginUserController(req, res) {
 
     const { email, password } = req.body
+
+    if (!email || !password) {
+        return res.status(400).json({
+            message: "Please provide email and password"
+        })
+    }
 
     const user = await userModel.findOne( {email})
 
@@ -101,7 +111,8 @@ async function loginUserController(req, res) {
             id: user._id,
             username: user.username,
             email: user.email
-        }
+        },
+        token
     })
     
 }
@@ -114,10 +125,14 @@ async function loginUserController(req, res) {
 
 async function logoutUserController(req,res) {
 
-    const token = req.cookies.token
+    const token = req.cookies.token || (req.headers.authorization?.startsWith("Bearer ") ? req.headers.authorization.split(" ")[1] : null)
 
     if(token) {
-        await tokenBlacklistModel.create( {token} )
+        try {
+            await tokenBlacklistModel.create( {token} )
+        } catch (e) {
+            console.log("Token already blacklisted or error:", e)
+        }
     }
     res.clearCookie("token", {
         httpOnly: true,

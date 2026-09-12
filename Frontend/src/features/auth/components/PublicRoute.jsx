@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import RunningLoader from "../../interview/pages/components/RunningLoader";
 
-const Protected = ({ children }) => {
+const PublicRoute = ({ children }) => {
     const { loading, user } = useAuth();
     const location = useLocation();
 
@@ -15,11 +15,12 @@ const Protected = ({ children }) => {
         );
     }
 
-    if (!user) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+    if (user) {
+        const destination = location.state?.from?.pathname || "/";
+        return <Navigate to={destination} replace />;
     }
 
     return children;
 };
 
-export default Protected;
+export default PublicRoute;

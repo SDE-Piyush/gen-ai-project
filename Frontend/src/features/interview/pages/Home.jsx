@@ -3,6 +3,7 @@ import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
 import AISpinnerLoader from './components/AISpinnerLoader.jsx'
+import Navbar from '../../../components/Navbar.jsx'
 
 const Home = () => {
 
@@ -28,7 +29,9 @@ const Home = () => {
     }
 
     return (
-        <div className='home-page'>
+        <>
+            <Navbar />
+            <div className='home-page'>
 
             {/* Page Header */}
             <header className='page-header'>
@@ -146,6 +149,7 @@ const Home = () => {
                 <a href='#'>Help Center</a>
             </footer>
         </div>
+        </>
     )
 }
 

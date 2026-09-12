@@ -1,0 +1,115 @@
+.app-navbar {
+    width: 100%;
+    background-color: #161b22;
+    border-bottom: 1px solid #2a3348;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+
+    &__container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0.85rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        color: #e6edf3;
+        font-weight: 700;
+        font-size: 1.15rem;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        .brand-icon {
+            color: #ff2d78;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-highlight {
+            color: #ff2d78;
+        }
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    &__user-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff2d78 0%, #a81c4e 100%);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(255, 45, 120, 0.3);
+        }
+
+        .username {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #c9d1d9;
+            max-width: 140px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__logout-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.825rem;
+        font-weight: 600;
+        color: #e6edf3;
+        background-color: #1e2535;
+        border: 1px solid #2a3348;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        svg {
+            stroke: #ff7b72;
+            transition: transform 0.2s;
+        }
+
+        &:hover {
+            background-color: rgba(248, 81, 73, 0.15);
+            border-color: rgba(248, 81, 73, 0.4);
+            color: #ff7b72;
+
+            svg {
+                transform: translateX(2px);
+            }
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+}
